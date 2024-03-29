@@ -1,0 +1,67 @@
+./mvnw package 
+to run Maven from terminal
+
+Maven is a software management tool
+to start a project, it is possible to initialize it using the web page start.spring.io and download the project
+
+In src/main/resources/application.properties it is possible to add spring boot properties, like the port, and other things. Here, we can configure also arbitrary properties like: 
+coach.name=Mickey Mouse
+
+it is possible to retrieve the content in our java class using the decorator:
+@Value("${coach.name}")
+private string coachName;
+
+we can use spring boot dev tools to automatically update the project without needing to restart it
+we can do that by adding spring boot dev tools (using the initializr) and (only in Intellij) setting some features in the compiler system. Command + ,
+advance settings > allow auto-make ...
+and
+build, execution, deploymnet > compiler > build project manually
+
+REST API is an api (application program interface) conforms to the design principles of the representational state transfer (REST)
+
+Spring Boot Actuator is another dependecy that you can add to pom to monitor the web app. It is very useful because you get some api url for free.
+all the Api url are preeceeded by "actuator/":
+- "health/" tells if the server is up or down
+- "info/" endopoint can provide information about your app
+	the info arre taken from applicatiion.properties (so you need to write it otherwise it is empty)
+
+Notice that to allow change in the pom (for instance if you want to add another starter) you need to to coomand + , > build, Execution, Deployment > Build Tools> allow any change. In this way, if maven does not have the files for a specific starter, then it will download them automatically when you run it.
+
+if you want to add endopoints with the actuator, you need to write in the applciation.properties section
+management.endpoints.web.exposure.include=health,info
+for the info endpoint, you need also
+management.info.env.enabled=true
+you can also customize the info endpoint
+info.app.name=...
+info.app.description
+info.app.version
+
+you can also expose all the endpoints of the actuator using "*". And there are the following actuators:
+/beans
+/threaddump
+/mappings
+
+a very interesting thing is that all these endpoints can be made private by using spring security framework (you need to add it to the pom). In this case, when an user try to access these endpoints, for instance the ones of the actuator, he/she needs to acces a login interface with username "user" and password from the terminal logs. You can ovveride name and password by writing them in application.properties.
+spring.security.user.name=scott
+spring.security.user.password=tiger
+To exclude some endpoints from the actuator, we can use:
+management.endpoints.web.exposure.exclude=health,info
+
+
+
+If you want to call the program from the terminal, you can do the following:
+1- use the mvnw.sh file with the following line: ./mvnw spring-boot:run
+   notice that if mevan is installed, then you can directly use mvn srping-boot:run 
+2- use java -jar project_with_jar_extention.jar
+   to create a jar project we can use $./mvnw package
+   you can find the created jar file in the target dir
+
+
+if you want to use String from application.properties you can just use the following decorator:
+    @Value("${coach.name}")
+    private String coachName;
+
+
+to change the server port we can set it in application.properties:
+server.port: 7070
+

@@ -1,0 +1,54 @@
+inversion of control is the approach of outsourcing the construction and management of objects
+
+Now we want spring to behave as the factory design patter. In fact, we can use spring as an Object factory. With the right configuration we can switch the type of class desired.
+Primary functions:
+- create and manage objects (inversion of control)
+- inject object depedencies (dependency injection)
+
+The dependency inversion principle - the client delegates to another object the responsability of providing its dependencies
+There are two recommendend types of injections:
+- constructor injection
+- setter injection
+It's better touse the first one when the dependencies are required and the second one when they are optional
+
+A Spring Bean is just a regular Java class that is managed by Spring
+@Component marks a class as a Spring Bean and makes the bean available for dependency injection
+
+We can set a Rest controller with @RestController
+@Autowired tells Spring to inject a dependendcy
+
+if we many components that implement all the same interface, then at run time we will have a problem. We can be more specific and use the decorator @Qualifier("name_of_the_class") to specify the class
+You can also use @Primary with @Component to specify a single class to be the primary implementation of an interface. 
+So, in case of multiple class with the same interface implementing a dependency injection, Spring will choose the one with the decorator @Primary. If we use neither @Primary or @Qualifier, we will get an error.
+
+You can use Lazy initializaton and a class will be initialized only in two cases:
+- when it is needed for a dependency injection
+- or if it is explicitily requested
+You just need to add the decorator @Lazy
+
+In application .properties it is possible to set all the class as lazy:
+spring.main.lazy-initialization=true
+
+Bean scopes - the default scope is singleton
+Spring containner creates only one instance of the bean by default
+it is cached in memory and all dependency injection for the bean will refer to the same bean
+
+we can also explictly set the scope of the bean to be singleton: 
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+Types of bean scopes:
+- singleton -> create a single shared instance of the bean. Default scope.
+- prototype -> create a new bean instance for each container request.
+- request -> scoped to an HTTP web request. Only used for web apps.
+- session -> scoped to an HTTP web session. ONly used for web apps.
+- globabl-session -> Scoped to a global HTTP web session. ONly used for web apps.
+
+it's interesting that if we use two same compoenents as injections for another class (so two beans), if the scope is singleton (which is the default), then they will point to the same area of memory. If want them to be different, we need to specify the scope as Prototype.
+
+You can use @PostConstructor to access the  bean as soon as it was initialized, then you can access it before it being destroyed with @Predestroy
+
+@Bean is used when you want to make an existing third-party class available to Spring framework
+You may not have access to the source code of third-pparty class
+However, you would like to use the third party class as spring bean
+To do this you also need a class with @Configuration and then a public method with the Bean decorator
+
+
