@@ -55,6 +55,19 @@ To handle exceptions:
   here you can define with settters: the status, the messages and the timestamps
   use the annotation @ExceptionHandler for this method
 
+@ControllerAdvice is a notation used in Spring.3x for handling global exceptions
+
+It's a bad practice to insert in the endpoint the actions. We should use the http actions.
+
+Service Facade design patter is used to implement a serivece layer
+it is useful because it is an intermediate layer for custom business logic
+integrate data from multiple sources
+it's a best practice to have a service layer
+@Service annotation for this layer
+
+Another best practice is to apply transactional boundaries at the service layer
+it0s the service layer's responsability to manage transaction boundaries
+
 
 
 
