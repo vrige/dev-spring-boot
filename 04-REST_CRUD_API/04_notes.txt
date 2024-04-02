@@ -66,7 +66,45 @@ it's a best practice to have a service layer
 @Service annotation for this layer
 
 Another best practice is to apply transactional boundaries at the service layer
-it0s the service layer's responsability to manage transaction boundaries
+it's the service layer's responsability to manage transaction boundaries
+we are talking about where we should use the @Transactional annotation
+
+It's interesting the fact that we can use curl with different flags:
+-H 'Content-Type: application/json'
+-d '{"firstName":"virgo","lastName":"Vergo","email":"virgo@gmail.com"}
+-X POST
+The previous command (curl) with all the previous flags was an example about a POST method
+
+@RequestBody to get a data from the body of the request message
+
+With Spring JPA is possible to create a sort of template where you get all the CRUD operations even 
+for all the classes. The only things you need to change are:
+- the entity class
+- the primary key
+In practice, you need to create an interface like the following one:
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>{}
+you don't need to write anything inside the body
+
+Spring boot Rest is a smart way to create easy endpoints (put, get, delete, post etc.).
+it needs JpaRepository and from that it can compute all the CRUD operations
+The endpoints will have the name of the class with:
+- the first letter lower case
+- an extra "s" at the end (plural)
+in this way we don't need anymore the service and controller layers!!!
+We just need:
+- the dao
+- the entity 
+- the spring boot rest inside the pom
+
+You can also specify the base of the url for the Spring boot REST. You can do it in the application.properties:
+spring.data.rest.base-path=/magic-api
+
+notice we can also specify the sorting by:
+http://localhost:8080/magic-api/employees?sort=lastName,desc
+
+If the plural is different from just adding a "s", we can use the annotation:
+@RepositoryRestResource(path=members")
+ 
 
 
 
