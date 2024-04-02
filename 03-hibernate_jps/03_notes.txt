@@ -1,0 +1,63 @@
+Hibernate is a framework for persisting/saving Java objects in a database
+
+hiibernates handles all of the low-level SQL and provides the object-toRelation Mapping (ORM)
+
+JPA is Jakarte Persistence API (previously known as Java Persistence API)
+standard API for ORM
+
+JPA has a object "entityManager" which can use JPA functions such as:
+- persist(obj) which saves an object in the db
+- find(class, id) which can retrieve from the db suing the primary key
+- createQuery(partial_query_string, class)
+
+JDBC = Java DataBase Connectivity
+Hibernate/JPS uses JDBC for all database communications
+
+For a test i will use H2 database which is a db in memory. 
+1- You need to insert in the pom the dependencies
+2- add some lines in the application.properties (check on github for this)
+3- test connection is using the full path of the database (data.sql file was used for initialization in the first project)
+
+However we can set a local mysql to work with it. In appplication properties add:
+spring.datasource.url=jdbc:mysql://localhost:3306/student_tracker
+spring.datasource.username=springstudent
+spring.datasource.password=springstudent
+
+where the first line is a table that we created using some materials from the course in our mysql app.
+
+it's useful to remove the initial logs by doing:
+spring.main.banner-mode=off
+logging.level.root=warn
+
+
+An entity class is a java class that is mapped to a db table. This connection is made thanks to JPA
+- it must be annotated with @Entity
+- must have a public or protected no-argument constructor, but the class can have other cunstroctor
+We need to do two tasks:
+- map class to db table
+- map fields to db columns
+
+We use @Entity and @Table for the first one, @Id and @Column for the other one.
+@Column is optional, but it reccomended to always add it
+
+The primary key uniquely identifie each row in a table. It must be a unique value and cannot contain NULL values
+In sql we can make autoincrement field inside a table. We can do the same using the following annotation:
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+
+CRUD = Create, Read, Update and Delete
+DAO = Data Access Object
+we can manage a DAO using a JPA Entity Manager which is the main component for saving/retrieving entities
+There is also an alternativity to the entity Manager: jspa Repository.
+if you need low-level control and flexibility, use EntityManager
+if you need high-level of abstraction, use JpaRepository
+
+@Transactional annotation 
+entityManager.persist(theStudent); saves the student into the db
+
+
+
+
+
+
+
+

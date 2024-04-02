@@ -1,0 +1,63 @@
+REST = REpresentational State Transfer
+which is the lightwieght approach for communicating between applications
+REST is language independent
+rest can use any data format
+REST calls can be made over HTTP
+
+JSON = JavaScript Object Notation
+lightweight data format for storing and communicating data
+
+POST = crete a new entity
+GET = read a list of entities or single entity
+PUT = Update an existing entity
+DELETE = delte an existing entity
+
+HTTP Request Message
+- Request line: the HTTP command
+- Header variables: requested metadata
+- message body: contents of message
+
+Status Codes:
+100-199 INformational
+200-299 Successful
+300-399 Redirection
+400-499 Client Error
+500-599 Server Error
+
+401 Authentication Required
+404 File Not found
+500 Internal Server Error
+
+MIME = Multipurpose Internet Mail-Extension
+
+@RestController sets the right response adapt for the HTTP protocol
+
+Data Binding is the process of converting JSON data to a JAva POJO
+Serialization is a synonym
+Data Binding in Spring is made with Jackson which is automatically included
+Jackson just call the setters method of the class to translate from json to Java POJO
+From Java POJO to JSON, jackson uses getters
+This convertion happens automatically if everything is set in the right way
+
+path variable is when there are curly brakets in the path and we can use that variable in the code
+/api/sutdents/{studentsID}
+to use it in the code, use @PathVariable for the argument of the function
+notice that the text inside the brakets and the name of the variable must be the same
+
+@PostConstruct is called just once after initialization of the bean properties.
+
+To handle exceptions:
+- create a throw method for the (eventually custom) exception 
+- create a custom exception if needed
+- create an error class that will be inserted in the exception handler
+- create an exception handler as method in the class that will throw the error
+  it must return "ResponseEntity<>" with the error class defined
+  here you can define with settters: the status, the messages and the timestamps
+  use the annotation @ExceptionHandler for this method
+
+
+
+
+
+
+
