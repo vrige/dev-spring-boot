@@ -1,0 +1,35 @@
+Spring Secuirty with servlet filters:
+- Servelet filters are used to pre-process/post-process web requests
+- servlet Filters can route web requests based on security logic
+- Spring provides a bulk of security functionality with servlet filters
+
+Basically, it checks if the user is authenticated and then authorized. If both are defined, then it shows the results.
+You can also customize the implementations if needed
+By default it will automatically secure all endpoints for the application
+
+Notice that using Spring Boot security, it will give a password by default in the terminal, while the username will be "user" by default. You can also specify the username and password with the following lines:
+spring.security.user.name=scott
+spring.security.user.password=test123
+These lines must be written in the application.properties.
+
+We can set users, passwords and roles.
+the passwords have a specific syntax: {id_alg}password
+where id_alg is an algorithm for the password. IT can be "noop" when it's just plain text.
+When you define a security class with @Configuration annotation, then you need to use credential to access the defined API
+
+Now, i want that a specific API can be called only with a certain level of credentials (or role)
+
+the syntax ** match on all sub-paths
+
+Spring Security can protect against CSRF attacks
+Embed additional authentication data/token into all HTML forms
+
+CSRF protection should be used for any normal browser web requests. However, ti is reccomended to not use CSRF protection for non-browser clients and for stateless REST APIs such as POST, PUT, DELETE and/or PATCH
+
+Another best practice is to store the password encrypted
+it is reccomended to use the bcrypt algorithm which:
+- performs one-way encrypted hashing
+- adds a random salt to the password for additional protection
+- includes support to defeat brute force attacks
+
+
