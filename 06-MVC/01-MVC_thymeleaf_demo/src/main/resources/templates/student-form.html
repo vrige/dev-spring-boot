@@ -20,11 +20,18 @@
     Country:
 
     <select th:field="*{country}">
-        <option th:value="Brazil">Brazil</option>
-        <option th:value="France">France</option>
-        <option th:value="Germany">Germany</option>
-        <option th:value="India">India</option>
+        <option th:each="tempCountry : ${countries}" th:value="${tempCountry}" th:text="${tempCountry}" />
     </select>
+
+    <br><br>
+
+    Favorite Programming Language:
+    <input type="radio" th:field="*{favoriteLanguage}" th:each="tempLang: ${languages}" th:value="${tempLang}" th:text="${tempLang}">
+
+    <br><br>
+
+    Favorite Operating System:
+    <input type="checkbox" th:field="*{favoriteSystems}" th:each="tempSyst: ${systems}" th:value="${tempSyst}" th:text="${tempSyst}">
 
     <br><br>
 
