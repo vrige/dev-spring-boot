@@ -1,0 +1,50 @@
+Thymeleaf is a java templating engine. No need for Spring.
+MVC = Model View Controller
+Notice that thymeleaf is processed on the server
+Thymeleaf files will go in the src/main/resources/templates
+thymeleaf seems like an html page with possible CSS and JAvascript integrations
+The CSS files will be added on the path src/main/resources/static
+To use the CSS in the HTML file we use:
+th:href="@{/css/demo.css}"
+
+To use Bootstrap for css we can download it and add it to /static/css directory
+
+Structure of MVC project:
+Web Browser -> Front Controller (from Spring team) ->> Model -> Controller -> Model -> View Template -> Web Browser
+You will create:
+- model objects -> contains your data. It stores /retrieves data via backend systems
+		   It places your data in the model
+- view templates -> support many view templates (reccomended: thymeleaf)
+- controller classes -> contains your business logic:
+			- handle the request
+			- store/retrieve data
+			- place data in model
+			- send to appropriate view template
+
+The controllers always use the annotation @Controller
+Notice that you need only to return a string with the same exact name of the template (html file) that you want to show
+
+The model is just a container for data. We can use a line (like the following one) to add an attribute to the model. Then, we can call that attribute as a variable from the template view:
+        model.addAttribute("message", result);
+We can also get an attribute from frontend in two ways:
+-         String theName = request.getParameter("studentName");
+- or using a decorator: @Requestaram("studentName") String theName as argument of a function
+
+To define a method in the Controller, you use the annotation @RequestMapping.
+It can handle all the types of http calls (GET, POST, etc).
+If you want to limitate it to a specific type, yuo can write something like this:
+@RequestMapping(path="/processForm", method=ReqeustMethod.GET)
+
+GET:
+- good for debugging
+- bookmark or email URL
+- limitations on data length
+POST:
+- CAn't bookmark or mail URL
+- No limitations on data length
+- can also send binary data
+
+@GetMapping only supports GET requests, @PostMapping only POST ones, etc.
+Obviously in the GET the data is appended to the URL, while in the POST is sent in HTTP Request Message body
+
+
