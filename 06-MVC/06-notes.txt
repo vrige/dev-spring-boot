@@ -47,4 +47,24 @@ POST:
 @GetMapping only supports GET requests, @PostMapping only POST ones, etc.
 Obviously in the GET the data is appended to the URL, while in the POST is sent in HTTP Request Message body
 
+Notice that from now and on, i will use windows.
+@Value("${Countries}") can be used as annotation for a List<String> to populate a list with names of contries. These names can be written in application.properties: Countries=USA,...
+
+Basicaly, in the controller i can use two interesting features:
+- from a mapping method i can return a string which is the name of the template file (html file) and that file will be rendered.
+- i can pass variables to the template using a model and doing addAttribute. I can pass an entire object, a list, etc.
+
+For the object i can use something like this:
+<form th:action="@{/processStudentForm}" th:object="${student}" method="POST">
+while for a list:
+<option th:each="tempCountry : ${countries}" th:value="${tempCountry}" th:text="${tempCountry}" />
+
+Validation annotations:
+@NotNull -> checks that annotated value is not null
+@Min -> must a number >= value
+@Max -> must be a number <= value 
+and others...
+
+@Valid tells Spring MVC to perform validation using the previous validation annotations.
+@ModelAttribute("name_attribute") to point to the right attribute name
 
