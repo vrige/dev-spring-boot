@@ -63,8 +63,32 @@ Validation annotations:
 @NotNull -> checks that annotated value is not null
 @Min -> must a number >= value
 @Max -> must be a number <= value 
+@Pattern -> for regular expressions
 and others...
 
 @Valid tells Spring MVC to perform validation using the previous validation annotations.
 @ModelAttribute("name_attribute") to point to the right attribute name
+
+@IniBinder annotation works as a pre-processor, it will pre-process each web request to our controller
+We can use StringTrimmerEditor to trim data. If it has only white spaces, it will trim to null
+
+Notice that if there is an error in the html page related to the validation fields, we can do something like this:
+        <span th:if="${#fields.hasErrors('freePasses')}"
+              th:errors="*{freePasses}"
+              class="error"></span>
+To display the error for the client.
+
+If you want to define a custom error message, you can do that in a special file "messages.properties" under "src/main/resources/messages.properties". For instance:
+typeMismatch.customer.freePasses=Invalid number	
+
+We can create customer java annotation:
+@CourseCode(value="LUV", message ="must start with LUV")
+First we need to reate @CourseCode annotation by
+
+	@Constraint(validateBy = CourseCodeConstraintValidator.class)
+	@Target({ElementType.METHOD, ElementType.FIELD})
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface CourseCode {
+
+	}
 
