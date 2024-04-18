@@ -39,19 +39,23 @@ public class DemoSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
         http.authorizeHttpRequests(configurer ->
-                configurer
-                        .requestMatchers("/").hasRole("EMPLOYEE")
-                        .requestMatchers("/leaders/**").hasRole("MANAGER")
-                        .requestMatchers("/systems/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+            configurer
+                .requestMatchers("/").hasRole("EMPLOYEE")
+                .requestMatchers("/leaders/**").hasRole("MANAGER")
+                .requestMatchers("/systems/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                    .loginPage("/showMyLoginPage") // you need to implement this page
-                    .loginProcessingUrl("/authenticateTheUser")   // you do not need to implment this
-                    .permitAll()
+                .loginPage("/showMyLoginPage") // you need to implement this page
+                .loginProcessingUrl("/authenticateTheUser")   // you do not need to implment this
+                .permitAll()
             )
             .logout(logout -> logout.permitAll()
-            );
+            )
+            .exceptionHandling(configurer ->
+                configurer.accessDeniedPage("/access-denied"));
         return http.build();
     }
+
+
 }
