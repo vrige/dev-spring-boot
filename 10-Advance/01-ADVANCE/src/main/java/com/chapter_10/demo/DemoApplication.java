@@ -1,6 +1,7 @@
 package com.chapter_10.demo;
 
 import com.chapter_10.demo.dao.AccountDAO;
+import com.chapter_10.demo.dao.MemberDAOimpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,15 +15,18 @@ public class DemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO){
+	public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MemberDAOimpl memberDAOimpl){
 		return runner ->{
-			demoTheBeforeAdvice(theAccountDAO);
-			demoTheBeforeAdvice(theAccountDAO);
+			demoTheBeforeAdvice(theAccountDAO, memberDAOimpl);
 		};
 	}
 
-	private void demoTheBeforeAdvice(AccountDAO theAccountDAO) {
+	private void demoTheBeforeAdvice(AccountDAO theAccountDAO, MemberDAOimpl memberDAOimpl) {
 
-		theAccountDAO.addAccount();
+		//memberDAOimpl.addAccount();
+		//theAccountDAO.addAccount();
+		Account myAccount = new Account();
+		theAccountDAO.addAccount(myAccount);
+
 	}
 }
