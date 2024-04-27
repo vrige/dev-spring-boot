@@ -2,6 +2,7 @@ package com.chapter_10.demo.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -9,10 +10,10 @@ import org.springframework.stereotype.Component;
 public class loggingAspect {
 
     // Notice that if you specify the full path of a method or class, you can restrict
-    // the adcive to that specific class.
+    // the advice to that specific class.
     // You can use the wildcard * to extend the advice to more methods.
     // you can also specify a class and use ".." in case of multiple arguments in the method
-    
+
     // advice: before running a certain method, do this
     @Before("execution(public void add*())")
     public void beforeAddAdvice(){
