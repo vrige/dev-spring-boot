@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class DemoApplication {
 
@@ -17,8 +19,32 @@ public class DemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MemberDAOimpl memberDAOimpl){
 		return runner ->{
-			demoTheBeforeAdvice(theAccountDAO, memberDAOimpl);
+			//demoTheBeforeAdvice(theAccountDAO, memberDAOimpl);
+			// demoTheAfterReturningAdvice(theAccountDAO);
+			demoTheAfterThrowingAdvice(theAccountDAO);
 		};
+	}
+
+	private void demoTheAfterThrowingAdvice(AccountDAO theAccountDAO) {
+
+		List<Account> theAccounts = null;
+
+		try{
+			boolean tripWire = true;
+			theAccounts = theAccountDAO.findAccounts(tripWire);
+		} catch(Exception exc) {
+			System.out.println("\n\nMainProgram: demoTheAfterReturningAdvice. Exception: " + exc);
+		}
+	}
+
+	private void demoTheAfterReturningAdvice(AccountDAO theAccountDAO) {
+
+		List<Account> theAccounts = theAccountDAO.findAccounts();
+
+		System.out.println("\n\nMainProgram: demoTheAfterReturningAdvice");
+
+		System.out.println(theAccounts);
+
 	}
 
 	private void demoTheBeforeAdvice(AccountDAO theAccountDAO, MemberDAOimpl memberDAOimpl) {
